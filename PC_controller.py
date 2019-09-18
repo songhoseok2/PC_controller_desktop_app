@@ -149,7 +149,7 @@ def move_cursor_to(x, y):
 
 def move_cursor(x_movement, y_movement):
     flags, hcursor, (original_x, original_y) = win32gui.GetCursorInfo()
-    move_cursor_to(original_x + x_movement, original_y + y_movement)
+    move_cursor_to(original_x + 5 * x_movement, original_y + 5 * y_movement)
 
 def press_left_click():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2))
@@ -173,62 +173,91 @@ def swipe(x_movement, y_movement):
 
 
 def handle_client_connection(client_socket):
-    request_byte = client_socket.recv(1024)
+    request_byte = client_socket.recv(21)
+    print("reqeust_byte size: " + str(sys.getsizeof(request_byte)))
     request = request_byte.decode()
     print("Received " + request)
 
-    if request == "press_W":
+    if request == "p_W_":
         press_W()
-    elif request == "release_W":
+    elif request == "r_W_":
         release_W()
-    elif request == "press_A":
+    elif request == "p_A_":
         press_A()
-    elif request == "release_A":
+    elif request == "r_A_":
         release_A()
-    elif request == "press_S":
+    elif request == "p_S_":
         press_S()
-    elif request == "release_S":
+    elif request == "r_S_":
         release_S()
-    elif request == "press_D":
+    elif request == "p_D_":
         press_D()
-    elif request == "release_D":
+    elif request == "r_D_":
         release_D()
-    elif request == "press_R":
+    elif request == "p_R_":
         press_R()
-    elif request == "release_R":
+    elif request == "r_R_":
         release_R()
-    elif request == "press_Q":
+    elif request == "p_Q_":
         press_Q()
-    elif request == "release_Q":
+    elif request == "r_Q_":
         release_Q()
-    elif request == "press_E":
+    elif request == "p_E_":
         press_E()
-    elif request == "release_E":
+    elif request == "r_E_":
         release_E()
-    elif request == "press_C":
+    elif request == "p_C_":
         press_C()
-    elif request == "release_C":
+    elif request == "r_C_":
         release_C()
-    elif request == "press_Ctrl":
+    elif request == "p_Ct":
         press_Ctrl()
-    elif request == "release_Ctrl":
+    elif request == "r_Ct":
         release_Ctrl()
-    elif request == "press_left_click":
+    elif request == "p_Lc":
         press_left_click()
-    elif request == "release_left_click":
+    elif request == "r_Lc":
         release_left_click()
-    elif request == "press_right_click":
+    elif request == "p_Rc":
         press_right_click()
-    elif request == "release_right_click":
+    elif request == "r_Rc":
         release_right_click()
 
-    elif request == "swipe":
-        movement = client_socket.recv(1024)
-        movement_str = movement.decode()
-        x_movement, y_movement = movement_str.split("_")
-        print("x: " + x_movement)
-        print("y: " + y_movement)
-        swipe(float(x_movement), float(y_movement))
+    elif request[0] == "+":
+        movement = request[1:]
+        try:
+            x_movement, y_movement = movement.split("_")
+        except:
+            print("skipping")
+            return
+        if len(x_movement) > 4:
+            x_movement = x_movement[0:len(x_movement) - 3]
+        if len(y_movement) > 4:
+            y_movement = y_movement[0:len(y_movement) - 3]
+        x_movement_float = ""
+        y_movement_float = ""
+        clear_to_proceed = True
+        try:
+            x_movement_float = float(x_movement)
+        except:
+            print("skipping")
+            clear_to_proceed = False
+        try:
+            y_movement_float = float(y_movement)
+        except:
+            print("skipping")
+            clear_to_proceed = False
+
+        print("x_movement: " + x_movement + ", y_movement: " + y_movement)
+        if clear_to_proceed:
+            swipe(x_movement_float, y_movement_float)
+        # movement_byte = client_socket.recv(28)
+        # print("movement_byte size: " + str(sys.getsizeof(movement_byte)))
+        # movement_str = movement_byte.decode()
+        # x_movement, y_movement = movement_str.split("_")
+        # print("x: " + x_movement)
+        # print("y: " + y_movement)
+        # swipe(float(x_movement), float(y_movement))
 
 port_num = 15200
 listening_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -240,4 +269,6 @@ print("Accepted connection from {}:{}".format(address[0], address[1]))
 
 while True:
     handle_client_connection(client_socket)
+# temp = '43d'
+# print("size of " + temp + ": " + str(sys.getsizeof(temp)))
 
