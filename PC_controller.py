@@ -5,10 +5,13 @@ import win32api
 import win32con
 import win32gui
 import sys
+import pyautogui
 
 SCREEN_WIDTH = ctypes.windll.user32.GetSystemMetrics(0)
 SCREEN_HEIGHT = ctypes.windll.user32.GetSystemMetrics(1)
 
+
+#key simulation code from: https://gist.github.com/silmang/9c352b39fc494588dd03896cdecb806e
 SendInput = ctypes.windll.user32.SendInput
 
 # C struct redefinitions
@@ -56,7 +59,6 @@ def PressKey(hexKeyCode):
     x = Input( ctypes.c_ulong(1), ii_ )
     ctypes.windll.user32.SendInput(1, ctypes.pointer(x), ctypes.sizeof(x))
 
-
 def ReleaseKey(hexKeyCode):
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
@@ -72,77 +74,23 @@ def alt_tab():
     ReleaseKey(56)
 
 
-def press_W():
-    PressKey(17)
-    print("W pressed")
 
-def release_W():
-    ReleaseKey(17)
-    print("W released")
 
-def press_A():
-    PressKey(30)
-    print("A pressed")
 
-def release_A():
-    ReleaseKey(30)
-    print("A released")
 
-def press_S():
-    PressKey(31)
-    print("S pressed")
 
-def release_S():
-    ReleaseKey(31)
-    print("S released")
 
-def press_D():
-    PressKey(32)
-    print("D pressed")
 
-def release_D():
-    ReleaseKey(32)
-    print("D released")
 
-def press_Q():
-    PressKey(16)
-    print("Q pressed")
 
-def release_Q():
-    ReleaseKey(16)
-    print("Q released")
 
-def press_E():
-    PressKey(18)
-    print("E pressed")
 
-def release_E():
-    ReleaseKey(18)
-    print("E released")
 
-def press_Ctrl():
-    PressKey(29)
-    print("Ctrl pressed")
 
-def release_Ctrl():
-    ReleaseKey(29)
-    print("Ctrl released")
 
-def press_C():
-    PressKey(46)
-    print("C pressed")
 
-def release_C():
-    ReleaseKey(46)
-    print("C released")
 
-def press_R():
-    PressKey(19)
-    print("R pressed")
 
-def release_R():
-    ReleaseKey(19)
-    print("R released")
 
 def move_cursor_to(x, y):
     win32api.mouse_event(win32con.MOUSEEVENTF_MOVE | win32con.MOUSEEVENTF_ABSOLUTE, int(x/SCREEN_WIDTH*65535.0), int(y/SCREEN_HEIGHT*65535.0))
@@ -178,52 +126,7 @@ def handle_client_connection(client_socket):
     request = request_byte.decode()
     print("Received " + request)
 
-    if request == "p_W_":
-        press_W()
-    elif request == "r_W_":
-        release_W()
-    elif request == "p_A_":
-        press_A()
-    elif request == "r_A_":
-        release_A()
-    elif request == "p_S_":
-        press_S()
-    elif request == "r_S_":
-        release_S()
-    elif request == "p_D_":
-        press_D()
-    elif request == "r_D_":
-        release_D()
-    elif request == "p_R_":
-        press_R()
-    elif request == "r_R_":
-        release_R()
-    elif request == "p_Q_":
-        press_Q()
-    elif request == "r_Q_":
-        release_Q()
-    elif request == "p_E_":
-        press_E()
-    elif request == "r_E_":
-        release_E()
-    elif request == "p_C_":
-        press_C()
-    elif request == "r_C_":
-        release_C()
-    elif request == "p_Ct":
-        press_Ctrl()
-    elif request == "r_Ct":
-        release_Ctrl()
-    elif request == "p_Lc":
-        press_left_click()
-    elif request == "r_Lc":
-        release_left_click()
-    elif request == "p_Rc":
-        press_right_click()
-    elif request == "r_Rc":
-        release_right_click()
-
-    elif request[0] == "+":
+    if request[0] == "+":
         movement = request[1:]
         try:
             x_movement, y_movement = movement.split("_")
@@ -251,13 +154,24 @@ def handle_client_connection(client_socket):
         print("x_movement: " + x_movement + ", y_movement: " + y_movement)
         if clear_to_proceed:
             swipe(x_movement_float, y_movement_float)
-        # movement_byte = client_socket.recv(28)
-        # print("movement_byte size: " + str(sys.getsizeof(movement_byte)))
-        # movement_str = movement_byte.decode()
-        # x_movement, y_movement = movement_str.split("_")
-        # print("x: " + x_movement)
-        # print("y: " + y_movement)
-        # swipe(float(x_movement), float(y_movement))
+
+    elif request == "p_win":
+        pyautogui.keyDown("win")
+    elif request == "r_win":
+        pyautogui.keyUp("win")
+
+    else:
+        try:
+            scancode = int(request[2:5])
+            print("scancode: ")
+            print(scancode)
+            if request[0] == 'p':
+                PressKey(scancode)
+            else:
+                ReleaseKey(scancode)
+        except:
+            print("skipping")
+
 
 port_num = 15200
 listening_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -269,6 +183,3 @@ print("Accepted connection from {}:{}".format(address[0], address[1]))
 
 while True:
     handle_client_connection(client_socket)
-# temp = '43d'
-# print("size of " + temp + ": " + str(sys.getsizeof(temp)))
-
