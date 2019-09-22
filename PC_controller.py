@@ -1,3 +1,4 @@
+import pyautogui
 import ctypes
 import time
 import socket
@@ -5,7 +6,6 @@ import win32api
 import win32con
 import win32gui
 import sys
-import pyautogui
 
 SCREEN_WIDTH = ctypes.windll.user32.GetSystemMetrics(0)
 SCREEN_HEIGHT = ctypes.windll.user32.GetSystemMetrics(1)
@@ -73,51 +73,58 @@ def alt_tab():
     time.sleep(0.1)
     ReleaseKey(56)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def move_cursor_to(x, y):
+    temp = (x/SCREEN_WIDTH*65535.0)
+    temp2 = (y/SCREEN_WIDTH*65535.0)
+
+    print("movement before rounding: ")
+    print("x: ")
+    print(temp)
+    print("y: ")
+    print(temp2)
+
+    temp = int(x/SCREEN_WIDTH*65535.0)
+    temp2 = int(y/SCREEN_WIDTH*65535.0)
+
+    print("actual movement: ")
+    print("x: ")
+    print(temp)
+    print("y: ")
+    print(temp2)
     win32api.mouse_event(win32con.MOUSEEVENTF_MOVE | win32con.MOUSEEVENTF_ABSOLUTE, int(x/SCREEN_WIDTH*65535.0), int(y/SCREEN_HEIGHT*65535.0))
 
 def move_cursor(x_movement, y_movement):
     flags, hcursor, (original_x, original_y) = win32gui.GetCursorInfo()
-    move_cursor_to(original_x + 5 * x_movement, original_y + 5 * y_movement)
+    move_cursor_to(original_x + 1 * x_movement, original_y + 1 * y_movement)
 
-def press_left_click():
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2))
+def press_left_click(original_x, original_y):
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, original_x, original_y)
     print("Left click pressed")
 
-def release_left_click():
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2))
+def release_left_click(original_x, original_y):
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, original_x, original_y)
     print("Left click released")
 
-def press_right_click():
-    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN, int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2))
+def press_right_click(original_x, original_y):
+    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN, original_x, original_y)
     print("Right click pressed")
 
-def release_right_click():
-    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2))
+def release_right_click(original_x, original_y):
+    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, original_x, original_y)
     print("Right click released")
+
+def press_middle_click():
+    pyautogui.click(button='middle')
+    # win32api.mouse_event(win32con.MOUSEEVENTF_MIDDLEDOWN, original_x, original_y)
+    print("Middle click pressed")
+
+def release_middle_click(original_x, original_y):
+    win32api.mouse_event(win32con.MOUSEEVENTF_MIDDLEUP, original_x, original_y)
+    print("Middle click released")
 
 def swipe(x_movement, y_movement):
     move_cursor(x_movement, y_movement)
-    print("Swiping" + str(x_movement) + str(y_movement))
+    print("Swiping " + str(x_movement) + ", " + str(y_movement))
 
 
 def handle_client_connection(client_socket):
@@ -142,17 +149,13 @@ def handle_client_connection(client_socket):
         clear_to_proceed = True
         try:
             x_movement_float = float(x_movement)
-        except:
-            print("skipping")
-            clear_to_proceed = False
-        try:
             y_movement_float = float(y_movement)
         except:
             print("skipping")
             clear_to_proceed = False
 
         print("x_movement: " + x_movement + ", y_movement: " + y_movement)
-        if clear_to_proceed:
+        if clear_to_proceed and abs(x_movement_float) > 0.001 and abs(y_movement_float) > 0.001:
             swipe(x_movement_float, y_movement_float)
 
     elif request == "p_win":
@@ -165,11 +168,29 @@ def handle_client_connection(client_socket):
             scancode = int(request[2:5])
             print("scancode: ")
             print(scancode)
+            is_mouse_event = scancode == 256 or scancode == 256 or scancode == 257
+            if is_mouse_event:
+                flags, hcursor, (original_x, original_y) = win32gui.GetCursorInfo()
             if request[0] == 'p':
-                PressKey(scancode)
+                if scancode == 256:
+                    press_left_click(original_x, original_y)
+                elif scancode == 257:
+                    press_right_click(original_x, original_y)
+                elif scancode == 258:
+                    press_middle_click()
+                else:
+                    PressKey(scancode)
             else:
-                ReleaseKey(scancode)
-        except:
+                if scancode == 256:
+                    release_left_click(original_x, original_y)
+                elif scancode == 257:
+                    release_right_click(original_x, original_y)
+                #elif scancode == 258:
+                    #release_middle_click(original_x, original_y)
+                else:
+                    ReleaseKey(scancode)
+        except Exception as e:
+            print(e)
             print("skipping")
 
 

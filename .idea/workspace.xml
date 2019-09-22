@@ -4,6 +4,37 @@
     <list default="true" id="cad1f0c1-6d64-4a70-aaba-a8793e3b552e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PC_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/PC_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PC_controller.spec" beforeDir="false" afterPath="$PROJECT_DIR$/PC_controller.spec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/PC_controller/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/Analysis-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/PC_controller/COLLECT-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/COLLECT-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/PC_controller/EXE-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/EXE-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/PC_controller/PC_controller.exe" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PC_controller.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/PC_controller/PKG-00.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PKG-00.pkg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/PC_controller/PKG-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PKG-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/PC_controller/PYZ-00.pyz" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PYZ-00.pyz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/PC_controller/PYZ-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PYZ-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/PC_controller/base_library.zip" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/base_library.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/PC_controller/warn-PC_controller.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/warn-PC_controller.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/PC_controller/xref-PC_controller.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/xref-PC_controller.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/PC_controller.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/PC_controller.exe.manifest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/VCRUNTIME140.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/_bz2.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/_ctypes.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/_hashlib.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/_lzma.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/_socket.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/_ssl.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/base_library.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/libcrypto-1_1.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/libssl-1_1.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/pyexpat.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/python37.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/pywintypes37.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/select.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/unicodedata.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/win32api.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/PC_controller/win32gui.pyd" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -74,12 +105,12 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@565f28d" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@2dd59b26" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@565f28d" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@c7dd4fef" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@2dd59b26" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@6d06db2a" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
           </expand>
           <select />
