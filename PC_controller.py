@@ -74,28 +74,12 @@ def alt_tab():
     ReleaseKey(56)
 
 def move_cursor_to(x, y):
-    temp = (x/SCREEN_WIDTH*65535.0)
-    temp2 = (y/SCREEN_WIDTH*65535.0)
-
-    print("movement before rounding: ")
-    print("x: ")
-    print(temp)
-    print("y: ")
-    print(temp2)
-
-    temp = int(x/SCREEN_WIDTH*65535.0)
-    temp2 = int(y/SCREEN_WIDTH*65535.0)
-
-    print("actual movement: ")
-    print("x: ")
-    print(temp)
-    print("y: ")
-    print(temp2)
     win32api.mouse_event(win32con.MOUSEEVENTF_MOVE | win32con.MOUSEEVENTF_ABSOLUTE, int(x/SCREEN_WIDTH*65535.0), int(y/SCREEN_HEIGHT*65535.0))
+    #pyautogui.moveTo(x, y)
 
 def move_cursor(x_movement, y_movement):
     flags, hcursor, (original_x, original_y) = win32gui.GetCursorInfo()
-    move_cursor_to(original_x + 1 * x_movement, original_y + 1 * y_movement)
+    move_cursor_to(original_x + 5 * x_movement, original_y + 5 * y_movement)
 
 def press_left_click(original_x, original_y):
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, original_x, original_y)
@@ -128,35 +112,36 @@ def swipe(x_movement, y_movement):
 
 
 def handle_client_connection(client_socket):
-    request_byte = client_socket.recv(21)
+    request_byte = client_socket.recv(1024)
     print("reqeust_byte size: " + str(sys.getsizeof(request_byte)))
     request = request_byte.decode()
     print("Received " + request)
 
-    if request[0] == "+":
+    if request[0] == "~":
         movement = request[1:]
         try:
-            x_movement, y_movement = movement.split("_")
+            movement_list = movement.split("~")
         except:
-            print("skipping")
+            print("skipping cuz unable to split by ~")
             return
-        if len(x_movement) > 4:
-            x_movement = x_movement[0:len(x_movement) - 3]
-        if len(y_movement) > 4:
-            y_movement = y_movement[0:len(y_movement) - 3]
-        x_movement_float = ""
-        y_movement_float = ""
-        clear_to_proceed = True
-        try:
-            x_movement_float = float(x_movement)
-            y_movement_float = float(y_movement)
-        except:
-            print("skipping")
-            clear_to_proceed = False
+        for i in range(len(movement_list)):
+            x_movement, y_movement = movement_list[i].split("_")
+            x_movement_float = ""
+            y_movement_float = ""
+            clear_to_proceed = True
+            try:
+                x_movement_float = float(x_movement)
+                y_movement_float = float(y_movement)
+            except:
+                print("skipping cuz unable to turn " + x_movement + " and " + y_movement + " to float")
+                # request_byte = client_socket.recv(21)
+                clear_to_proceed = False
 
-        print("x_movement: " + x_movement + ", y_movement: " + y_movement)
-        if clear_to_proceed and abs(x_movement_float) > 0.001 and abs(y_movement_float) > 0.001:
-            swipe(x_movement_float, y_movement_float)
+            print("x_movement: " + x_movement + ", y_movement: " + y_movement)
+            if clear_to_proceed:
+                swipe(x_movement_float, y_movement_float)
+
+
 
     elif request == "p_win":
         pyautogui.keyDown("win")
@@ -190,7 +175,7 @@ def handle_client_connection(client_socket):
                 else:
                     ReleaseKey(scancode)
         except Exception as e:
-            print(e)
+            #print(e)
             print("skipping")
 
 
