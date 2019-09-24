@@ -1,3 +1,7 @@
+import msvcrt
+import os
+from threading import Thread
+
 import pyautogui
 import ctypes
 import time
@@ -111,9 +115,13 @@ def swipe(x_movement, y_movement):
     print("Swiping " + str(x_movement) + ", " + str(y_movement))
 
 
-def handle_client_connection(client_socket):
-    request_byte = client_socket.recv(1024)
-    print("reqeust_byte size: " + str(sys.getsizeof(request_byte)))
+def accept_requests(client_socket):
+    request_byte = client_socket.recv(2000)
+    if not request_byte:
+        print("Connection Dropped.")
+        return False
+
+    print("request_byte size: " + str(sys.getsizeof(request_byte)))
     request = request_byte.decode()
     print("Received " + request)
 
@@ -125,10 +133,12 @@ def handle_client_connection(client_socket):
             print("skipping cuz unable to split by ~")
             return
         for i in range(len(movement_list)):
-            x_movement, y_movement = movement_list[i].split("_")
-            x_movement_float = ""
-            y_movement_float = ""
-            clear_to_proceed = True
+            try:
+                x_movement, y_movement = movement_list[i].split("_")
+                clear_to_proceed = True
+            except Exception as e:
+                print(e)
+                print("movement_list[" + str(i) + "]: " + movement_list[i])
             try:
                 x_movement_float = float(x_movement)
                 y_movement_float = float(y_movement)
@@ -140,8 +150,6 @@ def handle_client_connection(client_socket):
             print("x_movement: " + x_movement + ", y_movement: " + y_movement)
             if clear_to_proceed:
                 swipe(x_movement_float, y_movement_float)
-
-
 
     elif request == "p_win":
         pyautogui.keyDown("win")
@@ -175,17 +183,38 @@ def handle_client_connection(client_socket):
                 else:
                     ReleaseKey(scancode)
         except Exception as e:
-            #print(e)
+            print(e)
             print("skipping")
+    return True
 
 
-port_num = 15200
-listening_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-listening_socket.bind(('', port_num))
-listening_socket.listen(50)
-print("Listening on {}:{}".format(' ', port_num))
-client_socket, address = listening_socket.accept()
-print("Accepted connection from {}:{}".format(address[0], address[1]))
+def connect_to_clients():
+    while True:
+        port_number_str = input("Enter your port number: ")
+        port_number = -1
+        try:
+            port_number = int(port_number_str)
+            if port_number < 0:
+                print("ERROR: port number cannot be negative. Please re-enter.")
+            else:
+                break
+        except ValueError:
+            print("ERROR: port number must consist of only numbers. Please re-enter.")
 
-while True:
-    handle_client_connection(client_socket)
+    listening_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    listening_socket.bind(('', port_number))
+    listening_socket.listen(50)
+    print("Listening on port number: " + port_number_str)
+    client_socket, address = listening_socket.accept()
+    print("Accepted connection from {} : {}".format(address[0], address[1]))
+    return client_socket
+
+
+#####main#####
+proceed = True
+while proceed:
+    client_socket = connect_to_clients()
+    while(accept_requests(client_socket)):
+        print()
+    if input("Do you wish to reconnect? Enter Y to reconnect, any other key to exit the program: ") != "Y":
+        proceed = False

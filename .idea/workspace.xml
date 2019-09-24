@@ -5,7 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PC_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/PC_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/PC_controller/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/Analysis-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/PC_controller/COLLECT-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/COLLECT-00.toc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/PC_controller/EXE-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/EXE-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/PC_controller/PC_controller.exe" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PC_controller.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/PC_controller/PKG-00.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PKG-00.pkg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/PC_controller/PKG-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PKG-00.toc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/PC_controller/PYZ-00.pyz" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PYZ-00.pyz" afterDir="false" />
@@ -84,12 +86,12 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@54616e42" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@97f6c0da" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@54616e42" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@589823b1" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@97f6c0da" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@50e74f37" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
           </expand>
           <select />
