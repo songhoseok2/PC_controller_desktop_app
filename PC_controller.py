@@ -205,7 +205,15 @@ def connect_to_clients():
     listening_socket.bind(('', port_number))
     listening_socket.listen(50)
     print("Listening on port number: " + port_number_str)
-    client_socket, address = listening_socket.accept()
+
+    result = "invalid"
+
+    while result == "invalid":
+        client_socket, address = listening_socket.accept()
+        recieved_byte = client_socket.recv(21)
+        result = recieved_byte.decode()
+        print("connection result: " + result)
+
     print("Accepted connection from {} : {}".format(address[0], address[1]))
     return client_socket
 
@@ -214,7 +222,7 @@ def connect_to_clients():
 proceed = True
 while proceed:
     client_socket = connect_to_clients()
-    while(accept_requests(client_socket)):
+    while accept_requests(client_socket):
         print()
-    if input("Do you wish to reconnect? Enter Y to reconnect, any other key to exit the program: ") != "Y":
+    if input("Do you wish to reconnect? Enter y to reconnect, any other key to exit the program: ") != "y":
         proceed = False

@@ -4,18 +4,6 @@
     <list default="true" id="cad1f0c1-6d64-4a70-aaba-a8793e3b552e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PC_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/PC_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/PC_controller/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/Analysis-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/PC_controller/COLLECT-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/COLLECT-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/PC_controller/EXE-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/EXE-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/PC_controller/PC_controller.exe" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PC_controller.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/PC_controller/PKG-00.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PKG-00.pkg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/PC_controller/PKG-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PKG-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/PC_controller/PYZ-00.pyz" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PYZ-00.pyz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/PC_controller/PYZ-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/PYZ-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/PC_controller/base_library.zip" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/base_library.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/PC_controller/warn-PC_controller.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/warn-PC_controller.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/PC_controller/xref-PC_controller.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/PC_controller/xref-PC_controller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/PC_controller.exe" beforeDir="false" afterPath="$PROJECT_DIR$/dist/PC_controller.exe" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -86,12 +74,12 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@97f6c0da" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@269a7645" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@97f6c0da" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@50e74f37" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@269a7645" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7b3390ed" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
           </expand>
           <select />
