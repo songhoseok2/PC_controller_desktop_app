@@ -11,9 +11,10 @@ import win32con
 import win32gui
 import sys
 
+import wmi as wmi
+
 SCREEN_WIDTH = ctypes.windll.user32.GetSystemMetrics(0)
 SCREEN_HEIGHT = ctypes.windll.user32.GetSystemMetrics(1)
-
 
 #key simulation code from: https://gist.github.com/silmang/9c352b39fc494588dd03896cdecb806e
 SendInput = ctypes.windll.user32.SendInput
@@ -70,13 +71,6 @@ def ReleaseKey(hexKeyCode):
     x = Input(ctypes.c_ulong(1), ii_)
     ctypes.windll.user32.SendInput(1, ctypes.pointer(x), ctypes.sizeof(x))
 
-def alt_tab():
-    PressKey(56)
-    PressKey(15)
-    ReleaseKey(15)
-    time.sleep(0.1)
-    ReleaseKey(56)
-
 def move_cursor_to(x, y):
     win32api.mouse_event(win32con.MOUSEEVENTF_MOVE | win32con.MOUSEEVENTF_ABSOLUTE, int(x/SCREEN_WIDTH*65535.0), int(y/SCREEN_HEIGHT*65535.0))
     #pyautogui.moveTo(x, y)
@@ -115,7 +109,7 @@ def swipe(x_movement, y_movement):
     print("Swiping " + str(x_movement) + ", " + str(y_movement))
 
 
-def accept_requests(client_socket):
+def accept_requests(client_socket, SCREEN_BRIGHTNESS):
     request_byte = client_socket.recv(2000)
     if not request_byte:
         print("Connection Dropped.")
@@ -155,6 +149,61 @@ def accept_requests(client_socket):
         pyautogui.keyDown("win")
     elif request == "r_win":
         pyautogui.keyUp("win")
+    elif request == "p_vdo":
+        pyautogui.keyDown("volumedown")
+    elif request == "r_vdo":
+        pyautogui.keyUp("volumedown")
+    elif request == "p_vup":
+        pyautogui.keyDown("volumeup")
+    elif request == "r_vup":
+        pyautogui.keyUp("volumeup")
+    elif request == "p_mut":
+        pyautogui.keyDown("volumemute")
+    elif request == "r_mut":
+        pyautogui.keyUp("volumemute")
+    elif request == "p_a_t":
+        PressKey(56)
+        PressKey(15)
+        ReleaseKey(15)
+        time.sleep(0.1)
+        ReleaseKey(56)
+    elif request == "p_tsk":
+        PressKey(29)
+        PressKey(42)
+        PressKey(1)
+        ReleaseKey(29)
+        ReleaseKey(42)
+        ReleaseKey(1)
+    elif request == "p_bdo":
+        if SCREEN_BRIGHTNESS[0] == 0:
+            return True
+        SCREEN_BRIGHTNESS[0] -= 10
+        wmi.WMI(namespace='wmi').WmiMonitorBrightnessMethods()[0].WmiSetBrightness(SCREEN_BRIGHTNESS[0], 0)
+    elif request == "p_bup":
+        if SCREEN_BRIGHTNESS[0] == 100:
+            return True
+        SCREEN_BRIGHTNESS[0] += 10
+        wmi.WMI(namespace='wmi').WmiMonitorBrightnessMethods()[0].WmiSetBrightness(SCREEN_BRIGHTNESS[0], 0)
+    elif request == "p_c_a":
+        PressKey(29)
+        PressKey(30)
+        ReleaseKey(30)
+        ReleaseKey(29)
+    elif request == "p_c_x":
+        PressKey(29)
+        PressKey(45)
+        ReleaseKey(45)
+        ReleaseKey(29)
+    elif request == "p_c_c":
+        PressKey(29)
+        PressKey(46)
+        ReleaseKey(46)
+        ReleaseKey(29)
+    elif request == "p_c_v":
+        PressKey(29)
+        PressKey(47)
+        ReleaseKey(47)
+        ReleaseKey(29)
 
     else:
         try:
@@ -178,8 +227,6 @@ def accept_requests(client_socket):
                     release_left_click(original_x, original_y)
                 elif scancode == 257:
                     release_right_click(original_x, original_y)
-                #elif scancode == 258:
-                    #release_middle_click(original_x, original_y)
                 else:
                     ReleaseKey(scancode)
         except Exception as e:
@@ -220,9 +267,10 @@ def connect_to_clients():
 
 #####main#####
 proceed = True
+SCREEN_BRIGHTNESS = [0]
 while proceed:
     client_socket = connect_to_clients()
-    while accept_requests(client_socket):
+    while accept_requests(client_socket, SCREEN_BRIGHTNESS):
         print()
     if input("Do you wish to reconnect? Enter y to reconnect, any other key to exit the program: ") != "y":
         proceed = False
