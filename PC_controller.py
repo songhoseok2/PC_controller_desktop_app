@@ -204,6 +204,18 @@ def accept_requests(client_socket, SCREEN_BRIGHTNESS):
         PressKey(47)
         ReleaseKey(47)
         ReleaseKey(29)
+    elif request == "p_c_v":
+        PressKey(29)
+        PressKey(47)
+        ReleaseKey(47)
+        ReleaseKey(29)
+    elif request == "p_af4":
+        PressKey(56)
+        PressKey(62)
+        ReleaseKey(62)
+        ReleaseKey(56)
+    elif request == "p_off":
+        os.system("shutdown /s /t 1")
 
     else:
         try:
@@ -267,7 +279,7 @@ def connect_to_clients():
 
 #####main#####
 proceed = True
-SCREEN_BRIGHTNESS = [0]
+SCREEN_BRIGHTNESS = [10]
 while proceed:
     client_socket = connect_to_clients()
     while accept_requests(client_socket, SCREEN_BRIGHTNESS):
